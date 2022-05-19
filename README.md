@@ -11,7 +11,7 @@ yarn start
 ```
 
 
-#TODO list
+#TODO list <br>
 -[ ] birthday date picker<br>
 -[x] highlight on hover<br>
 -[x] confirm on delete<br>
