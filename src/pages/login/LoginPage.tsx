@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState<number>(200);
     const navigator = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem("username")) navigator("/add")
+        if (localStorage.getItem("access_token")) navigator("/users")
     }, []);
     const {register, handleSubmit} = useForm<LoginFormData>();
     const onSubmit: SubmitHandler<LoginFormData> = (form) =>

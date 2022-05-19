@@ -12,7 +12,7 @@ export type UserRequest = {
     username: string
     firstName: string
     lastName: string
-    roleName: string
+    roleId: number
 }
 
 export async function getUsers(): Promise<any> {
@@ -65,7 +65,7 @@ export async function createUser(user: UserRequest): Promise<any> {
             {
                 username : user.username,
                 password : user.password,
-                roleName : user.roleName,
+                roleId : user.roleId,
                 firstName : user.firstName,
                 lastName : user.lastName,
             },
@@ -82,12 +82,11 @@ export async function createUser(user: UserRequest): Promise<any> {
 
 export async function updateUser(user: UserRequest): Promise<any> {
     let data = null;
-    console.log(user);
     await client
         .put("/users/"+user.username,
             {
                 password : user.password,
-                roleName : user.roleName,
+                roleId : user.roleId,
                 firstName : user.firstName,
                 lastName : user.lastName,
             },

@@ -21,7 +21,7 @@ const UserPage: React.FC = () => {
         getUser(params.username).then((response) => {
             setUser(response);
             updateForm.setValue("username", params.username ? params.username : "");
-            updateForm.setValue("roleName", response.roleName)
+            updateForm.setValue("roleId", response.roleName)
             getRoles().then(content => setRoles(content))
         })
     }, []);
@@ -50,7 +50,7 @@ const UserPage: React.FC = () => {
                         <br/>
                         <Select options={roles.map(role => {
                             return {
-                                value: role.name,
+                                value: role.id,
                                 label: role.name,
                             }
                         })}
@@ -58,9 +58,12 @@ const UserPage: React.FC = () => {
                                 isClearable={false}
                                 placeholder={"نقش"}
                                 onChange={option => {
-                                    updateForm.setValue("roleName", option != null ? option.value : "")
+                                    updateForm.setValue("roleId", option != null ? option.value : 0)
                                 }}
-                                defaultValue={[{label: user.roleName, value: user.roleName}]}
+                                defaultValue={[{
+                                    label: user.roleName,
+                                    value: user.roleName != null ? roles.filter(role => role.name == user.roleName)[0].id : user.roleName
+                                }]}
                         />
                         <br/>
                         <Input type="submit" value="بروزرسانی"/>

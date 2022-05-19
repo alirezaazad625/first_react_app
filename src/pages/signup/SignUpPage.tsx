@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import Input from "../../components/Input";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {SignUpFormData} from "./SignUpAPI";
+import {useNavigate} from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,6 +45,10 @@ const Login = styled.div`
 `;
 
 const SignUpPage: React.FC = () => {
+    const navigator = useNavigate();
+    useEffect(() => {
+        if (localStorage.getItem("access_token")) navigator("/users")
+    }, []);
     const {register, handleSubmit} = useForm<SignUpFormData>();
     const onSubmit: SubmitHandler<SignUpFormData> = () => {
         // navigator("/login");

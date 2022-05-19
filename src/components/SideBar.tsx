@@ -21,7 +21,7 @@ export default () => {
                             نقش ها
                         </div>
                     </div>
-                    <div className="link"  onClick={() => {
+                    <div className="link" onClick={() => {
                         localStorage.removeItem("access_token");
                         navigator("/login")
                     }}>

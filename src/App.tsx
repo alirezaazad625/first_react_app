@@ -14,8 +14,7 @@ import RolePage from "./pages/roles/RolePage";
 export default function App() {
     return <BrowserRouter>
         <div style={{"display": "flex"}}>
-            {/*<SideBar/>*/}
-                <SideBar/>
+            <SideBar/>
             <Routes>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/signup" element={<SignUpPage/>}/>
@@ -23,7 +22,7 @@ export default function App() {
                 <Route path="/users/:username" element={<UserPage/>}/>
                 <Route path="/roles" element={<RolesPage/>}/>
                 <Route path="/roles/:id" element={<RolePage/>}/>
-                <Route path="*" element={<RedirectPage/>} />
+                <Route path="*" element={<RedirectPage/>}/>
             </Routes>
         </div>
     </BrowserRouter>;

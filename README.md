@@ -12,7 +12,7 @@ yarn start
 
 
 #TODO list
-birthday date picker
-highlight on hover
-confirm on delete
-generic CRUD component {sort}
+-[ ] birthday date picker<br>
+-[x] highlight on hover<br>
+-[x] confirm on delete<br>
+-[ ] generic CRUD component {sort}<br>

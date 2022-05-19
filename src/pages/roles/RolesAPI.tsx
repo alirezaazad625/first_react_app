@@ -22,7 +22,7 @@ const Options = [
 
 
 export type Role = {
-    id?: number,
+    id: number,
     name: string
     permissions: string[]
 }

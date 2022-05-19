@@ -15,6 +15,7 @@ const FormContainer = styled.div`
   border: black solid 1px;
   border-radius: 5px;
   background-color: midnightblue;
+  flex-direction: column;
 `;
 
 
@@ -24,7 +25,7 @@ const Form = styled.form`
   align-items: center;
   justify-content: center;
   border-radius: 5px;
-  padding: 10px;
+  padding: 0 10px 10px 10px;
   direction: rtl;
   width: 256px;
 `;
@@ -39,12 +40,25 @@ const MainContainer = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+  padding: 0 20px;
 `;
 
 const TableContainer = styled.div`
   width: 100%;
-  border: black solid 1px;
   overflow-x: auto;
+`;
+
+const CloseButton = styled.div`
+  background-color: white;
+  color: black;
+  width: 15px;
+  height: 15px;
+  float: right;
+  align-self: start;
+  margin: 2px;
+  align-items: center;
+  justify-items: self-end;
+  display: flex;
 `;
 
 export {
@@ -53,5 +67,6 @@ export {
     Form,
     InputWrapper,
     MainContainer,
-    TableContainer
+    TableContainer,
+    CloseButton
 }

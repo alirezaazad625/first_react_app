@@ -123,10 +123,10 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    border-bottom: none;
 }
 
 td, th {
-    /*border: 1px solid #dddddd;*/
     text-align: left;
     padding: 8px;
 }
@@ -135,22 +135,26 @@ th , td{
     text-align: center;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #dddddd;
-}
-
 .create-button{
     width: 10%;
     height: 30px;
     border-radius: 2px;
     background-color: dodgerblue;
     color: white;
-    margin: 10px;
+    margin: 10px 10px 10px 0;
     align-self: flex-end;
-    margin-left: 0;
 }
 
 
 i:hover{
     cursor: pointer;
+}
+
+tr{
+   border-bottom: 0.5px solid gray;
+   border-top: 0.5px solid gray;
+}
+
+tbody tr:hover, thead tr td:hover{
+    background-color: #F0F0F0 !important;
 }
