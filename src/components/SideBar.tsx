@@ -1,5 +1,5 @@
 import {useNavigate} from "react-router-dom";
-import {getAccessToken, removeAccessToken} from "../storage/AccessToken";
+import {getAccessToken, hasRole, removeAccessToken} from "../storage/AccessToken";
 
 export default () => {
     const userInfo = getAccessToken();
@@ -8,20 +8,18 @@ export default () => {
         <>
             {userInfo &&
             <div className={"nav"} style={{"height": "100vh", "margin": "0", "width": "20vh"}}>
-                {/*<h2 style={{"padding": "20px"}}>*/}
-                {/*    سامانه دسترسی*/}
-                {/*</h2>*/}
                 <nav>
                     <div className="link" onClick={() => navigator("/users")}>
                         <div>
                             کاربران
                         </div>
                     </div>
-                    <div className="link" onClick={() => navigator("/roles")}>
+                    {hasRole('ROLE_CREATE_ROLE') &&  <div className="link" onClick={() => navigator("/roles")}>
                         <div>
                             نقش ها
                         </div>
                     </div>
+                    }
                     <div className="link" onClick={() => {
                         removeAccessToken();
                         navigator("/login")
