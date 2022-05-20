@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {SubmitHandler, useForm} from "react-hook-form";
 import {useNavigate} from 'react-router-dom'
 import {login, LoginFormData} from "./LoginAPI";
+import {getAccessToken} from "../../storage/AccessToken";
 
 const Wrapper = styled.div`
   display: flex;
@@ -54,7 +55,7 @@ const LoginPage: React.FC = () => {
     const [error, setError] = useState<number>(200);
     const navigator = useNavigate();
     useEffect(() => {
-        if (localStorage.getItem("access_token")) navigator("/users")
+        if (getAccessToken()) navigator("/users")
     }, []);
     const {register, handleSubmit} = useForm<LoginFormData>();
     const onSubmit: SubmitHandler<LoginFormData> = (form) =>

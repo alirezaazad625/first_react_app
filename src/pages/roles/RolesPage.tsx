@@ -79,7 +79,7 @@ export default () => {
                     {
                         roles.map(
                             role => (
-                                <tr key={role.name}>
+                                <tr key={role.id}>
                                     <td>{role.name}</td>
                                     <td>{role.permissions.map(
                                         value => {

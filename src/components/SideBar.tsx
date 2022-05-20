@@ -1,7 +1,8 @@
 import {useNavigate} from "react-router-dom";
+import {getAccessToken, removeAccessToken} from "../storage/AccessToken";
 
 export default () => {
-    const userInfo = localStorage.getItem("access_token");
+    const userInfo = getAccessToken();
     const navigator = useNavigate()
     return (
         <>
@@ -22,7 +23,7 @@ export default () => {
                         </div>
                     </div>
                     <div className="link" onClick={() => {
-                        localStorage.removeItem("access_token");
+                        removeAccessToken();
                         navigator("/login")
                     }}>
                         <div>

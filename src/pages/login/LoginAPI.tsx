@@ -1,4 +1,5 @@
 import client from "../../instances/client";
+import {setAccessToken} from "../../storage/AccessToken";
 
 
 export interface LoginFormData {
@@ -15,7 +16,7 @@ export async function login(form: LoginFormData): Promise<number> {
         })
         .then(response => {
             console.log(response.data)
-            localStorage.setItem("access_token", response.data.access_token);
+            setAccessToken(response.data.access_token);
             status = response.status;
         })
         .catch(error => {

@@ -62,7 +62,7 @@ const UserPage: React.FC = () => {
                                 }}
                                 defaultValue={[{
                                     label: user.roleName,
-                                    value: user.roleName != null ? roles.filter(role => role.name == user.roleName)[0].id : user.roleName
+                                    value: user.roleId
                                 }]}
                         />
                         <br/>

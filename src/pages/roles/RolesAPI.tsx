@@ -1,4 +1,5 @@
 import client from "../../instances/client";
+import {getAccessToken} from "../../storage/AccessToken";
 
 
 const Options = [
@@ -38,7 +39,7 @@ export async function getRoles(): Promise<any> {
     await client
         .get("/roles", {
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("access_token")
+                "Authorization": "Bearer " + getAccessToken()
             }
         })
         .then(response => {
@@ -52,7 +53,7 @@ export async function getRole(id?: number): Promise<any> {
     await client
         .get("/roles/" + id, {
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("access_token")
+                "Authorization": "Bearer " + getAccessToken()
             }
         })
         .then(response => {
@@ -67,7 +68,7 @@ export async function deleteRole(id?: number): Promise<any> {
     await client
         .delete("/roles/" + id, {
             headers: {
-                "Authorization": "Bearer " + localStorage.getItem("access_token")
+                "Authorization": "Bearer " + getAccessToken()
             }
         })
         .then(response => {
@@ -86,7 +87,7 @@ export async function createRole(request: RoleRequest): Promise<any> {
             },
             {
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("access_token")
+                    "Authorization": "Bearer " + getAccessToken()
                 }
             })
         .then(response => {
@@ -105,7 +106,7 @@ export async function updateRole(request: RoleRequest): Promise<any> {
             },
             {
                 headers: {
-                    "Authorization": "Bearer " + localStorage.getItem("access_token")
+                    "Authorization": "Bearer " + getAccessToken()
                 }
             })
         .then(response => {
