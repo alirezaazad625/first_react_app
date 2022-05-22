@@ -1,5 +1,3 @@
-import {resolveSrv} from "dns";
-
 const ACCESS_TOKEN_KEY = "access_token";
 
 function getAccessToken(): string | null {

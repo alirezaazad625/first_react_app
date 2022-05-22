@@ -79,7 +79,7 @@ const SignUpPage: React.FC = () => {
                 <span>
                     قبلا ثبت نام کرده اید؟
                 </span>
-                <a href="/login">ورود</a>
+                <a href={"/login"}>ورود</a>
             </Login>
         </Wrapper>);
 }

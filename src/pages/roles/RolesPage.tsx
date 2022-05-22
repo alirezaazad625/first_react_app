@@ -12,7 +12,7 @@ export default () => {
     const [roles, setRoles] = useState<Role[]>([]);
     useEffect(
         () => {
-            updateRoles()
+            updateRoles().then()
         }
         , []
     );

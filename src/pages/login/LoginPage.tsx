@@ -84,7 +84,7 @@ const LoginPage: React.FC = () => {
                 <span>
                     هنوز ثبت نام نکرده اید؟
                 </span>
-                <a href="/signup">ثبت نام</a>
+                <a href={"/signup"}>ثبت نام</a>
             </SignUp>
         </Wrapper>
     );
