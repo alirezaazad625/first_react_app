@@ -1,13 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {SubmitHandler, useForm} from "react-hook-form";
-import Popup from 'reactjs-popup';
-import Input from "../../components/Input";
-import Select from "react-select";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-import {Form, FormContainer, InputWrapper, MainContainer, TableContainer} from "../Styled";
 import {createRole, deleteRole, getRoles, Options, Role, RoleRequest} from "./RolesAPI";
+import Crud from "../../components/Crud";
+import {hasRole} from "../../storage/AccessToken";
 
 
 export default () => {
@@ -21,99 +17,71 @@ export default () => {
         , []
     );
 
-    function removeRole(role: Role) {
-        deleteRole(role.id).then(() => {
-                let newRoles = roles.filter(function (u) {
-                    return u !== role
-                })
-                setRoles(newRoles)
-            }
-        )
-    }
+    const onDelete = hasRole('ROLE_CREATE_ROLE') ? (role: Role) => {
+        if (window.confirm(`are you sure about removing role : ${role.name} ?`)) {
+            deleteRole(role.id).then(() => {
+                    let newRoles = roles.filter(function (u) {
+                        return u !== role
+                    })
+                    setRoles(newRoles)
+                }
+            )
+        }
+    } : undefined;
 
+    const onUpdate = hasRole('ROLE_CREATE_ROLE') ? (role: Role) => navigator("/roles/" + role.id) : undefined;
     const updateRoles = () => getRoles().then(content => {
         setRoles(content);
     });
 
-    const {register, handleSubmit, setValue} = useForm<RoleRequest>();
-    const createRoleAction: SubmitHandler<RoleRequest> = (role) => {
+    const form = useForm<RoleRequest>();
+    const onCreate = hasRole('ROLE_CREATE_ROLE') ? (role: RoleRequest) => {
         createRole(role).then(() => getRoles().then(() => updateRoles()));
-    };
+    } : undefined;
 
+
+    let requestTextFields = [{register: form.register("name"), placeHolder: "نام"}];
+
+    let headers = [
+        {name: "name", title: "نام"},
+        {name: "permissions", title: "دسترسی ها"},
+    ];
+
+    let requestSelectField = {
+        options: Options,
+        placeHolder: "دسترسی",
+        onChange: (options: any) => {
+            form.setValue("permissions", options.map((o: any) => o.value))
+        },
+        isMulti: true
+    };
     return (
-        <MainContainer>
-            <Popup key={"create_role"}
-                   trigger={<button className={"create-button"}>ساخت</button>}
-                   position="center center"
-                   modal nested closeOnEscape>
-                <FormContainer>
-                    <Form onSubmit={handleSubmit(createRoleAction)}>
-                        <InputWrapper>
-                            <Input type="text" {...register("name")} placeholder="نام"/>
-                        </InputWrapper>
-                        <br/>
-                        <Select options={Options}
-                                isMulti
-                                isClearable={false}
-                                placeholder={"دسترسی ها"}
-                                onChange={options => {
-                                    setValue("permissions", options.map(o => o.value))
-                                }}
-                        />
-                        <br/>
-                        <Input type="submit" value="ساخت"/>
-                    </Form>
-                </FormContainer>
-            </Popup>
-            <TableContainer>
-                <table>
-                    <thead>
-                    <tr>
-                        <td>نام</td>
-                        <td>دسترسی ها</td>
-                        <td>ویرایش</td>
-                        <td>حذف</td>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        roles.map(
-                            role => (
-                                <tr key={role.id}>
-                                    <td>{role.name}</td>
-                                    <td>{role.permissions.map(
-                                        value => {
-                                            if (value == 'ROLE_CREATE_USER')
-                                                return 'ساخت کاربر';
-                                            else if (value == 'ROLE_DELETE_USER')
-                                                return 'حذف کاربر';
-                                            else if (value == 'ROLE_UPDATE_USER')
-                                                return 'بروزرسانی کاربر';
-                                            else if (value == 'ROLE_CREATE_ROLE')
-                                                return 'ساخت نقش';
-                                        }
-                                    ).join(",")}</td>
-                                    <td>
-                                        <FontAwesomeIcon
-                                            cursor={"pointer"}
-                                            icon={faPenToSquare}
-                                            onClick={() => navigator("/roles/" + role.id)}
-                                        />
-                                    </td>
-                                    <td>
-                                        <FontAwesomeIcon
-                                            cursor={"pointer"}
-                                            icon={faTrash}
-                                            onClick={() => removeRole(role)}
-                                        />
-                                    </td>
-                                </tr>
-                            )
-                        )
-                    }
-                    </tbody>
-                </table>
-            </TableContainer>
-        </MainContainer>
+        <Crud
+            form={form}
+            onCreate={onCreate}
+            onDelete={onDelete}
+            onUpdate={onUpdate}
+            data={roles.map(role => {
+                return {
+                    name: role.name,
+                    id: role.id,
+                    permissions: [role.permissions.map(
+                        value => {
+                            if (value == 'ROLE_CREATE_USER')
+                                return 'ساخت کاربر';
+                            else if (value == 'ROLE_DELETE_USER')
+                                return 'حذف کاربر';
+                            else if (value == 'ROLE_UPDATE_USER')
+                                return 'بروزرسانی کاربر';
+                            else if (value == 'ROLE_CREATE_ROLE')
+                                return 'ساخت نقش';
+                        }
+                    ).join(",")]
+                }
+            })}
+            headers={headers}
+            requestTextFields={requestTextFields}
+            requestSelectField={requestSelectField}
+        />
     );
 }

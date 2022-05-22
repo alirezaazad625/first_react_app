@@ -15,4 +15,4 @@ yarn start
 -[ ] birthday date picker<br>
 -[x] highlight on hover<br>
 -[x] confirm on delete<br>
--[ ] generic CRUD component {sort}<br>
+-[x] generic CRUD component<br>

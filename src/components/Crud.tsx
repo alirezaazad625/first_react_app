@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {UnpackNestedValue, UseFormReturn} from "react-hook-form";
 import Popup from 'reactjs-popup';
 import Input from "./Input";
@@ -14,7 +14,7 @@ interface IHeader {
 }
 
 interface IOption {
-    value: number
+    value: number|string
     label: string
 }
 
@@ -31,7 +31,6 @@ interface IInput {
 }
 
 interface CrudInterface<Model extends object, RequestModel extends object> {
-    children: any
     form: UseFormReturn<RequestModel>
     onCreate?: (x: UnpackNestedValue<RequestModel>) => void
     onDelete?: (x: Model) => void
@@ -39,7 +38,7 @@ interface CrudInterface<Model extends object, RequestModel extends object> {
     data: Model[]
     headers: IHeader[]
     requestTextFields: IInput[]
-    requestPasswordField: IInput
+    requestPasswordField?: IInput
     requestSelectField: ISelect
 }
 
@@ -47,7 +46,7 @@ export default <Model extends object, RequestModel extends object>(props: CrudIn
     return (
         <MainContainer>
             {props.onCreate != null &&
-            <Popup key={"create_user"}
+            <Popup key={"create"}
                    trigger={<button className={"create-button"}>ساخت</button>}
                    position="center center"
                    modal nested closeOnEscape>
@@ -63,27 +62,26 @@ export default <Model extends object, RequestModel extends object>(props: CrudIn
                                 close()
                             }
                         )}>
+                            {props.requestTextFields.map(input =>
+                                <InputWrapper>
+                                    <Input type="text" {...input.register} placeholder={input.placeHolder}/>
+                                </InputWrapper>
+                            )}
                             {
-                                <>
-                                    {props.requestTextFields.map(input =>
-                                        <InputWrapper>
-                                            <Input type="text" {...input.register} placeholder={input.placeHolder}/>
-                                        </InputWrapper>
-                                    )}
-                                    <InputWrapper>
-                                        <Input type="password"
-                                               {...props.requestPasswordField.register}
-                                               placeholder={props.requestPasswordField.placeHolder}/>
-                                    </InputWrapper>
-                                    <br/>
-                                    <Select options={props.requestSelectField.options}
-                                            isMulti={props.requestSelectField.isMulti}
-                                            isClearable={false}
-                                            placeholder={props.requestSelectField.placeHolder}
-                                            onChange={option => props.requestSelectField?.onChange(option)}
-                                    />
-                                </>
+                                props.requestPasswordField &&
+                                <InputWrapper>
+                                    <Input type="password"
+                                           {...props.requestPasswordField.register}
+                                           placeholder={props.requestPasswordField.placeHolder}/>
+                                </InputWrapper>
                             }
+                            <br/>
+                            <Select options={props.requestSelectField.options}
+                                    isMulti={props.requestSelectField.isMulti}
+                                    isClearable={false}
+                                    placeholder={props.requestSelectField.placeHolder}
+                                    onChange={option => props.requestSelectField?.onChange(option)}
+                            />
                             <br/>
                             <Input type="submit" value="ساخت"/>
                         </Form>

@@ -70,7 +70,6 @@ export default () => {
             requestTextFields={requestTextFields}
             requestPasswordField={requestPasswordField}
             requestSelectField={requestSelectField}
-        >
-        </Crud>
+        />
     )
 }
