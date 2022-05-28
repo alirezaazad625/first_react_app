@@ -57,7 +57,8 @@ export default () => {
         {name: "username", title: "نام کاربری"},
         {name: "firstName", title: "نام"},
         {name: "lastName", title: "نام خانوادگی"},
-        {name: "roleName", title: "نقش"}
+        {name: "roleName", title: "نقش"},
+        {name: "birthDay", title: "تاریخ تولد"}
     ];
     return (
         <Crud
@@ -70,6 +71,10 @@ export default () => {
             requestTextFields={requestTextFields}
             requestPasswordField={requestPasswordField}
             requestSelectField={requestSelectField}
+            onDatePicking={(value: string) => {
+                console.log(value)
+                form.setValue("birthDay", value)
+            }}
         />
     )
 }

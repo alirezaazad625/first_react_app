@@ -7,6 +7,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClose, faPenToSquare, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {CloseButton, Form, FormContainer, InputWrapper, MainContainer, TableContainer} from "../pages/Styled";
 import {UseFormRegisterReturn} from "react-hook-form/dist/types/form";
+import DatePicker from "react-datepicker2";
 
 interface IHeader {
     name: string
@@ -14,7 +15,7 @@ interface IHeader {
 }
 
 interface IOption {
-    value: number|string
+    value: number | string
     label: string
 }
 
@@ -40,6 +41,7 @@ interface CrudInterface<Model extends object, RequestModel extends object> {
     requestTextFields: IInput[]
     requestPasswordField?: IInput
     requestSelectField: ISelect
+    onDatePicking?: (value: string) => void
 }
 
 export default <Model extends object, RequestModel extends object>(props: CrudInterface<Model, RequestModel>) => {
@@ -74,6 +76,22 @@ export default <Model extends object, RequestModel extends object>(props: CrudIn
                                            {...props.requestPasswordField.register}
                                            placeholder={props.requestPasswordField.placeHolder}/>
                                 </InputWrapper>
+                            }
+                            <br/>
+                            {props.onDatePicking != undefined &&
+                            <div style={{"display": "inline-flex", "color": "white"}}>
+                                تاریخ تولد
+                                &nbsp;
+                                <DatePicker
+                                    isGregorian={false}
+                                    value={null}
+                                    onChange={value => {
+                                        if (props.onDatePicking)
+                                            props.onDatePicking(JSON.parse(JSON.stringify(value)).split("T")[0])
+                                    }
+                                    }
+                                />
+                            </div>
                             }
                             <br/>
                             <Select options={props.requestSelectField.options}

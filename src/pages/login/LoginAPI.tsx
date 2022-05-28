@@ -15,7 +15,6 @@ export async function login(form: LoginFormData): Promise<number> {
             "password": form.password
         })
         .then(response => {
-            console.log(response.data)
             setAccessToken(response.data.access_token);
             status = response.status;
         })

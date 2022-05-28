@@ -12,6 +12,7 @@ export type User = {
     lastName: string
     roleName: string
     roleId: number
+    birthDay: string
 }
 
 export type UserRequest = {
@@ -20,6 +21,7 @@ export type UserRequest = {
     firstName: string
     lastName: string
     roleId: number
+    birthDay: string
 }
 
 export async function getUsers(): Promise<any> {
@@ -56,13 +58,13 @@ export async function deleteUser(username: string): Promise<any> {
 export async function createUser(user: UserRequest): Promise<any> {
     let data = null;
     await client
-        .post("/users",
-            {
+        .post("/users", {
                 username: user.username,
                 password: user.password,
                 roleId: user.roleId,
                 firstName: user.firstName,
                 lastName: user.lastName,
+                birthDay: user.birthDay
             }, headers)
         .then(response => {
             data = response.data;
