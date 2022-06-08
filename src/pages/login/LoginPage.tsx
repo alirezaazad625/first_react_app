@@ -34,17 +34,6 @@ const Error = styled.div`
   color: red;
 `;
 
-const SignUp = styled.div`
-  background-color: transparent;
-  color: white;
-  padding-top: 10px;
-
-  a {
-    padding-right: 10px;
-    color: deepskyblue;
-  }
-`;
-
 const InputWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -80,12 +69,6 @@ const LoginPage: React.FC = () => {
                 </Error>
                 <Input type="submit" value="ورود"/>
             </Form>
-            <SignUp>
-                <span>
-                    هنوز ثبت نام نکرده اید؟
-                </span>
-                <a href={"/signup"}>ثبت نام</a>
-            </SignUp>
         </Wrapper>
     );
 }

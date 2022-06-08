@@ -4,7 +4,6 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from "./pages/login/LoginPage";
 import UsersPage from "./pages/users/UsersPage";
 import UserPage from "./pages/users/UserPage";
-import SignUpPage from "./pages/signup/SignUpPage";
 import RedirectPage from "./pages/RedirectPage";
 import SideBar from "./components/SideBar";
 import RolesPage from "./pages/roles/RolesPage";
@@ -17,7 +16,6 @@ export default function App() {
             <SideBar/>
             <Routes>
                 <Route path="/login" element={<LoginPage/>}/>
-                <Route path="/signup" element={<SignUpPage/>}/>
                 <Route path="/users" element={<UsersPage/>}/>
                 <Route path="/users/:username" element={<UserPage/>}/>
                 <Route path="/roles" element={<RolesPage/>}/>
