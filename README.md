@@ -1,5 +1,9 @@
 ```bash
-cd /path/to/first_react_app
+git clone https://github.com/alirezaazad625/first_react_app.git
+```
+
+```bash
+cd ./first_react_app
 ```
 
 ```bash
@@ -12,7 +16,7 @@ yarn start
 
 
 #TODO list <br>
--[ ] birthday date picker<br>
+-[x] birthday date picker<br>
 -[x] highlight on hover<br>
 -[x] confirm on delete<br>
 -[x] generic CRUD component<br>
